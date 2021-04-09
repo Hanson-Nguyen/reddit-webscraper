@@ -1,15 +1,14 @@
 import requests
 from bs4 import BeautifulSoup
 
-URL = 'https://www.monster.com/jobs/search/?q=Software-Developer&where=Australia'
+URL = 'https://webscraper.io/test-sites/e-commerce/allinone/phones/touch'
 
 page = requests.get(URL)
 
 soup = BeautifulSoup(page.content, 'html.parser')
 
-results = soup.find(id='ResultsContainer')
+shop_elems = soup.find_all('div', class_ = 'col-md-9')
 
-job_elems = results.find_all('section', class_='card-content')
-
-for job_elem in job_elems:
-    print(job_elem, end='\n'*2)
+for shop_elems in shop_elems:
+    items_elem = shop_elems.find('div', class_ = 'row')
+    print(items_elem.text)
